@@ -16,6 +16,8 @@ func NewHandler() *Handlers {
 }
 
 func (h *Handlers) Init(e *echo.Echo, s *services.Services) {
+	e.GET("/healthcheck", h.HealthCheck)
+
 	e.GET("/", s.Hello)
 	e.GET("/albums", s.GetAlbums)
 	e.GET("/albums/:id", s.GetAlbumByID)
