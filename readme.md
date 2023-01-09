@@ -1,4 +1,10 @@
 # go-api-server-echo
 
+## Architecture
+- configs
+- handlers
+- services
+- repository
+
 ## ToDo
-Designing Code Design.
+Code Design.
