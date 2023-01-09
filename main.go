@@ -8,7 +8,7 @@ import (
 
 	"skport/go-api-server-echo/handlers"
 	"skport/go-api-server-echo/services"
-	//"skport/go-api-server-echo/configs"
+	"skport/go-api-server-echo/configs"
 	//"skport/go-api-server-echo/repository"
 	//"skport/go-api-server-echo/stores"
 )
@@ -17,7 +17,15 @@ func main() {
 	log.Println("Starting.")
 
 	// Configs
-	//c := configs.NewConfigs()
+	c := configs.NewConfigs()
+	err := c.Init()
+	if (err != nil) {
+		log.Println(err)
+		return
+	}
+
+	// Get Env
+	//env := c.Get("APP_ENV")
 
 	// ------
 	// Initialize Echo
