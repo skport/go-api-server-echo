@@ -1,0 +1,78 @@
+info:
+  contact: {}
+paths:
+  /:
+    get:
+      consumes:
+      - '*/*'
+      description: Show Hello
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Hello, World!
+          schema:
+            type: string
+      summary: Show Hello
+      tags:
+      - Basic
+  /albums:
+    get:
+      consumes:
+      - '*/*'
+      description: getAlbums responds with the list of all albums as JSON.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetAlbums
+          schema:
+            type: string
+      summary: Show Albums
+      tags:
+      - Album
+    post:
+      consumes:
+      - application/json
+      description: postAlbums adds an album from JSON received in the request body.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Post album
+          schema:
+            type: string
+      summary: Post Album
+      tags:
+      - Album
+  /albums/{id}:
+    get:
+      consumes:
+      - '*/*'
+      description: getAlbumByID locates the album whose ID value matches the id parameter
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Album for id
+          schema:
+            type: string
+      summary: Show Album for id
+      tags:
+      - Album
+  /healthcheck:
+    get:
+      consumes:
+      - '*/*'
+      description: Show HealthCheck
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Show HealthCheck
+      tags:
+      - System
+swagger: "2.0"

@@ -34,16 +34,38 @@ func NewServices() *Services {
 	return s
 }
 
+// Hello godoc
+// @Summary      Show Hello
+// @Description  Show Hello
+// @Tags         Basic
+// @Accept       */*
+// @Produce      plain
+// @Success      200 {string} string "Hello, World!"
+// @Router       / [get]
 func (s *Services) Hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
 
-// getAlbums responds with the list of all albums as JSON.
+// GetAlbums godoc
+// @Summary      Show Albums
+// @Description  getAlbums responds with the list of all albums as JSON.
+// @Tags         Album
+// @Accept       */*
+// @Produce      json
+// @Success      200 {string} string "GetAlbums"
+// @Router       /albums [get]
 func (s *Services) GetAlbums(c echo.Context) error {
 	return c.JSON(http.StatusOK, albums)
 }
 
-// postAlbums adds an album from JSON received in the request body.
+// PostAlbums godoc
+// @Summary      Post Album
+// @Description  postAlbums adds an album from JSON received in the request body.
+// @Tags         Album
+// @Accept       json
+// @Produce      json
+// @Success      200 {string} string "Post album"
+// @Router       /albums [post]
 func (s *Services) PostAlbums(c echo.Context) error {
 	var newAlbum album
 
@@ -58,6 +80,14 @@ func (s *Services) PostAlbums(c echo.Context) error {
 	return c.JSON(http.StatusCreated, newAlbum)
 }
 
+// GetAlbumByID godoc
+// @Summary      Show Album for id
+// @Description  getAlbumByID locates the album whose ID value matches the id parameter
+// @Tags         Album
+// @Accept       */*
+// @Produce      json
+// @Success      200 {string} string "Album for id"
+// @Router       /albums/{id} [get]
 // getAlbumByID locates the album whose ID value matches the id
 // parameter sent by the client, then returns that album as a response.
 func (s *Services) GetAlbumByID(c echo.Context) error {
