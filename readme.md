@@ -7,6 +7,7 @@ The main objective of this repository is to compose a generic API server archite
 
 - Go Framework - [Echo](https://github.com/labstack/echo)
 - RESTful API doc generater - [echo-swagger](https://github.com/swaggo/echo-swagger)
+- Environment Variables - [GoDotEnv](https://github.com/joho/godotenv)
 
 Detail : go.mod
 
@@ -43,13 +44,17 @@ $ go mod tidy
 $ go install github.com/swaggo/swag/cmd/swag@lates
 ```
 
-2. Run `swag init` and generate API document in `/docs` directory.
+2. Write API annotations to go file.
+
+[Swagger Document](https://github.com/swaggo/swag#declarative-comments-format)
+
+3. Run `swag init` and generate API documents in `/docs` directory.
 
 ```sh
 $ swag init
 ```
 
-3. Restart Server.
+4. Restart Server.
 
 ## ToDo
 More Code Design.
