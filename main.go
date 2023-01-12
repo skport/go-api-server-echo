@@ -9,7 +9,7 @@ import (
 	"skport/go-api-server-echo/handlers"
 	"skport/go-api-server-echo/services"
 	"skport/go-api-server-echo/configs"
-	//"skport/go-api-server-echo/repository"
+	"skport/go-api-server-echo/repository"
 	//"skport/go-api-server-echo/stores"
 )
 
@@ -39,18 +39,15 @@ func main() {
 	}))
 	// ------
 
+	// Repository
+	rp := repository.NewInMemoryRepository()
+
 	// Services
-	s := services.NewServices()
+	s := services.NewServices(&rp)
 
 	// Handlers (Routing)
 	h := handlers.NewHandler()
 	h.Init(e, s)
-
-	// Stores
-	//s := stores.NewStore()
-
-	// Repository
-	//r := repository.NewRepository()
 
 	// Start server
 	e.Logger.Fatal(e.Start(":3000"))
