@@ -13,14 +13,36 @@ Detail : go.mod
 
 ## Architecture
 
+### Layered Architecture
+Note : The dependency of repository on domain should be fixed. 
+
+```mermaid
+flowchart LR
+    subgraph Presentation
+    id1["handlers/"]
+    end
+    subgraph Application
+    services/
+    end
+    subgraph Domain
+    domains/
+    end
+    subgraph Repository
+    repositorys/
+    end
+    Presentation --> Application
+    Application --> Domain
+    Application --> Repository
+    Repository --> Domain
+```
+
 ### Directory
 |key|value|
 |---|-----|
 |configs|environments|
 |handlers|controller, routing|
 |services|usecase, Application Logic|
-|repository|The persistent data store|
-|stores|data store|
+|repository|data store|
 |docs|API doc to generated with Swagger|
 
 ## Installation
@@ -32,7 +54,7 @@ $ go mod tidy
 
 ## Usage
 
-1. run `go run .` to start server.
+1. Run `go run .` to start server.
 2. Open http://localhost:3000 with your browser to see the result.
 3. Open http://localhost:3000/swagger/index.html, you can see Swagger Api documents.
 

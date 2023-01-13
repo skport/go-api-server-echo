@@ -6,10 +6,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"skport/go-api-server-echo/handlers"
-	"skport/go-api-server-echo/services"
 	"skport/go-api-server-echo/configs"
+	"skport/go-api-server-echo/handlers"
 	"skport/go-api-server-echo/repository"
+	"skport/go-api-server-echo/services"
 	//"skport/go-api-server-echo/stores"
 )
 
@@ -19,7 +19,7 @@ func main() {
 	// Configs
 	c := configs.NewConfigs()
 	err := c.Init()
-	if (err != nil) {
+	if err != nil {
 		log.Println(err)
 		return
 	}
