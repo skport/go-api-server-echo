@@ -40,7 +40,8 @@ func main() {
 	// ------
 
 	// Repository
-	rp := repository.NewInMemoryRepository()
+	//rp := repository.NewInMemoryRepository()
+	rp := repository.NewDevDBRepository()
 
 	// Services
 	s := services.NewServices(&rp)

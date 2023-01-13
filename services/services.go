@@ -103,13 +103,10 @@ func (s *Services) GetAlbumByID(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.JSON(http.StatusOK, r)
 
-	/*
-	// Not Found
-	re := &httpResponce{
-		Message: "album not found",
+	if r.ID == 0 {
+		return c.JSON(http.StatusNotFound, "Not Found")
 	}
-	return c.JSON(http.StatusNotFound, re)
-	*/
+
+	return c.JSON(http.StatusOK, r)
 }

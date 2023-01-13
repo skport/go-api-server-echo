@@ -3,6 +3,7 @@ module skport/go-api-server-echo
 go 1.18
 
 require (
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/swaggo/echo-swagger v1.3.5
