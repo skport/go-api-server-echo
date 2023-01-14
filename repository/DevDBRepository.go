@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"log"
 	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -8,6 +9,24 @@ import (
 	"skport/go-api-server-echo/domains"
 )
 
+// -----
+// Manage Database
+var Db *sql.DB
+
+func dbOpen() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3306)/api")
+	if err != nil {
+		return db, err
+	}
+
+	if err := db.Ping(); err != nil {
+		return db, err
+	}
+
+	return db, nil
+}
+
+// -----
 // Realization Class
 type DevDBRepository struct{
 	albums []domains.Album
@@ -25,18 +44,18 @@ func (rp *DevDBRepository) init() {
 		{ID: 2, Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
 		{ID: 3, Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 	}
+
+	var err error
+	Db, err = dbOpen()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (rp *DevDBRepository) ReadAll() ([]domains.Album, error) {
 	albums := []domains.Album{}
 
-	db, err := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3306)/api")
-	if err != nil {
-		return albums, err
-	}
-	defer db.Close()
-
-	rows, err := db.Query("SELECT * FROM album ORDER BY id")
+	rows, err := Db.Query("SELECT * FROM album ORDER BY id")
 	if err != nil {
 		return albums, err
 	}
@@ -54,14 +73,8 @@ func (rp *DevDBRepository) ReadAll() ([]domains.Album, error) {
 func (rp *DevDBRepository) ReadById(id int) (domains.Album, error) {
 	album := domains.Album{}
 
-	db, err := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3306)/api")
-	if err != nil {
-		return album, err
-	}
-	defer db.Close()
-
-	err = db.QueryRow("SELECT * FROM album WHERE id = ?", id).
-					Scan(&album.ID, &album.Title, &album.Artist, &album.Price)
+	err := Db.QueryRow("SELECT * FROM album WHERE id = ?", id).
+		Scan(&album.ID, &album.Title, &album.Artist, &album.Price)
 	switch {
 	case err == sql.ErrNoRows:
 	case err != nil:
@@ -72,13 +85,7 @@ func (rp *DevDBRepository) ReadById(id int) (domains.Album, error) {
 }
 
 func (rp *DevDBRepository) Post(newAlbum domains.Album) (error) {
-	db, err := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3306)/api")
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	tx, err := db.Begin()
+	tx, err := Db.Begin()
 	if err != nil {
 		return err
 	}
