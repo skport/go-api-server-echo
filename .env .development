@@ -1,6 +1,6 @@
 # Application Enviroment
-# select development
-APP_ENV=inmemory
+# development
+APP_ENV=development
 
 DB_NAME=api
 DB_HOST=127.0.0.1

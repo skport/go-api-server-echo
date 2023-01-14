@@ -2,11 +2,13 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"skport/go-api-server-echo/configs"
+	"github.com/joho/godotenv"
+
 	"skport/go-api-server-echo/handlers"
 	"skport/go-api-server-echo/repository"
 	"skport/go-api-server-echo/services"
@@ -16,16 +18,11 @@ import (
 func main() {
 	log.Println("Starting.")
 
-	// Configs
-	c := configs.NewConfigs()
-	err := c.Init()
+	// Environment
+	err := godotenv.Load()
 	if err != nil {
-		log.Println(err)
-		return
+		log.Fatal(err)
 	}
-
-	// Get Env
-	//env := c.Get("APP_ENV")
 
 	// ------
 	// Initialize Echo
@@ -39,9 +36,16 @@ func main() {
 	}))
 	// ------
 
-	// Repository
-	//rp := repository.NewInMemoryRepository()
-	rp := repository.NewDevDBRepository()
+	// Switch data store using Repository pattern
+	env := os.Getenv("APP_ENV")
+	var rp repository.Repository
+	if env == "development" {
+		rp = repository.NewDevDBRepository()
+		log.Println("Selected data store : DevDB")
+	} else {
+		rp = repository.NewInMemoryRepository()
+		log.Println("Selected data store : InMemory")
+	}
 
 	// Services
 	s := services.NewServices(&rp)

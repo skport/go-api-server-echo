@@ -2,6 +2,8 @@ package repository
 
 import (
 	"log"
+	"fmt"
+	"os"
 	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -14,7 +16,18 @@ import (
 var Db *sql.DB
 
 func dbOpen() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3306)/api")
+	db, err := sql.Open(
+		os.Getenv("DB_DRIVER"),
+			fmt.Sprintf(
+				"%s:%s@%s(%s:%s)/%s",
+				os.Getenv("DB_USER"),
+				os.Getenv("DB_PASS"),
+				os.Getenv("DB_PROTCOL"),
+				os.Getenv("DB_HOST"),
+				os.Getenv("DB_PORT"),
+				os.Getenv("DB_NAME"),
+		),
+	)
 	if err != nil {
 		return db, err
 	}
