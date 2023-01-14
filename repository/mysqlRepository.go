@@ -17,15 +17,15 @@ var Db *sql.DB
 
 func dbOpen() (*sql.DB, error) {
 	db, err := sql.Open(
-		os.Getenv("DB_DRIVER"),
-			fmt.Sprintf(
-				"%s:%s@%s(%s:%s)/%s",
-				os.Getenv("DB_USER"),
-				os.Getenv("DB_PASS"),
-				os.Getenv("DB_PROTCOL"),
-				os.Getenv("DB_HOST"),
-				os.Getenv("DB_PORT"),
-				os.Getenv("DB_NAME"),
+		"mysql",
+		fmt.Sprintf(
+			"%s:%s@%s(%s:%s)/%s",
+			os.Getenv("DB_USER"),
+			os.Getenv("DB_PASS"),
+			os.Getenv("DB_PROTCOL"),
+			os.Getenv("DB_HOST"),
+			os.Getenv("DB_PORT"),
+			os.Getenv("DB_NAME"),
 		),
 	)
 	if err != nil {
@@ -41,17 +41,17 @@ func dbOpen() (*sql.DB, error) {
 
 // -----
 // Realization Class
-type DevDBRepository struct{
+type MySQLRepository struct{
 	albums []domains.Album
 }
 
-func NewDevDBRepository() Repository {
-	r := new(DevDBRepository)
+func NewMySQLRepository() Repository {
+	r := new(MySQLRepository)
 	r.init()
 	return r
 }
 
-func (rp *DevDBRepository) init() {
+func (rp *MySQLRepository) init() {
 	rp.albums = []domains.Album{
 		{ID: 1, Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
 		{ID: 2, Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
@@ -65,7 +65,7 @@ func (rp *DevDBRepository) init() {
 	}
 }
 
-func (rp *DevDBRepository) ReadAll() ([]domains.Album, error) {
+func (rp *MySQLRepository) ReadAll() ([]domains.Album, error) {
 	albums := []domains.Album{}
 
 	rows, err := Db.Query("SELECT * FROM album ORDER BY id")
@@ -83,7 +83,7 @@ func (rp *DevDBRepository) ReadAll() ([]domains.Album, error) {
 	return albums, nil
 }
 
-func (rp *DevDBRepository) ReadById(id int) (domains.Album, error) {
+func (rp *MySQLRepository) ReadById(id int) (domains.Album, error) {
 	album := domains.Album{}
 
 	err := Db.QueryRow("SELECT * FROM album WHERE id = ?", id).
@@ -97,7 +97,7 @@ func (rp *DevDBRepository) ReadById(id int) (domains.Album, error) {
 	return album, nil
 }
 
-func (rp *DevDBRepository) Post(newAlbum domains.Album) (error) {
+func (rp *MySQLRepository) Post(newAlbum domains.Album) (error) {
 	tx, err := Db.Begin()
 	if err != nil {
 		return err

@@ -40,8 +40,8 @@ func main() {
 	env := os.Getenv("APP_ENV")
 	var rp repository.Repository
 	if env == "development" {
-		rp = repository.NewDevDBRepository()
-		log.Println("Selected data store : DevDB")
+		rp = repository.NewMySQLRepository()
+		log.Println("Selected data store : MySQL")
 	} else {
 		rp = repository.NewInMemoryRepository()
 		log.Println("Selected data store : InMemory")
