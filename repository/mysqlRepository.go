@@ -19,13 +19,11 @@ func dbOpen() (*sql.DB, error) {
 	db, err := sql.Open(
 		"mysql",
 		fmt.Sprintf(
-			"%s:%s@%s(%s:%s)/%s",
+			"%s:%s@tcp(%s:%s)/",
 			os.Getenv("DB_USER"),
 			os.Getenv("DB_PASS"),
-			os.Getenv("DB_PROTCOL"),
 			os.Getenv("DB_HOST"),
 			os.Getenv("DB_PORT"),
-			os.Getenv("DB_NAME"),
 		),
 	)
 	if err != nil {
@@ -41,9 +39,7 @@ func dbOpen() (*sql.DB, error) {
 
 // -----
 // Realization Class
-type MySQLRepository struct{
-	albums []domains.Album
-}
+type MySQLRepository struct{}
 
 func NewMySQLRepository() Repository {
 	r := new(MySQLRepository)
@@ -52,15 +48,46 @@ func NewMySQLRepository() Repository {
 }
 
 func (rp *MySQLRepository) init() {
-	rp.albums = []domains.Album{
+	var err error
+	Db, err = dbOpen()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Import initialize data
+	albums := []domains.Album{
 		{ID: 1, Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
 		{ID: 2, Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
 		{ID: 3, Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 	}
 
-	var err error
-	Db, err = dbOpen()
+	_, err = Db.Exec("CREATE DATABASE IF NOT EXISTS api CHARACTER SET utf8mb4 COLLATE utf8mb4_bin")
 	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = Db.Exec("USE api")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = Db.Exec("CREATE TABLE IF NOT EXISTS album ( id int(10) unsigned NOT NULL AUTO_INCREMENT, title varchar(100) NOT NULL, artist varchar(100) NOT NULL, price decimal(6,2) NOT NULL, PRIMARY KEY (id) )")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tx, err := Db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, a := range albums {
+		_, err = tx.Exec("INSERT IGNORE INTO album VALUES(?, ?, ?, ?)", a.ID, a.Title, a.Artist, a.Price)
+		if err != nil {
+			_ = tx.Rollback()
+			log.Fatal(err)
+		}
+	}
+	if err := tx.Commit(); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -1,10 +1,7 @@
-# Application Enviroment
-# development
+# Application Environment
 APP_ENV=development
 
-DB_NAME=api
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_USER=root
 DB_PASS=pass
-DB_PROTCOL=tcp

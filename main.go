@@ -12,7 +12,6 @@ import (
 	"skport/go-api-server-echo/handlers"
 	"skport/go-api-server-echo/repository"
 	"skport/go-api-server-echo/services"
-	//"skport/go-api-server-echo/stores"
 )
 
 func main() {
@@ -40,11 +39,11 @@ func main() {
 	env := os.Getenv("APP_ENV")
 	var rp repository.Repository
 	if env == "development" {
-		rp = repository.NewMySQLRepository()
 		log.Println("Selected data store : MySQL")
+		rp = repository.NewMySQLRepository()
 	} else {
-		rp = repository.NewInMemoryRepository()
 		log.Println("Selected data store : InMemory")
+		rp = repository.NewInMemoryRepository()
 	}
 
 	// Services
