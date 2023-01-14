@@ -39,11 +39,11 @@ flowchart LR
 ### Directory
 |key|value|
 |---|-----|
-|configs|environments|
 |handlers|controller, routing|
 |services|usecase, Application Logic|
 |repository|data store|
 |docs|API doc to generated with Swagger|
+|configs|Not in use now|
 
 ## Installation
 
@@ -58,7 +58,25 @@ $ go mod tidy
 2. Open http://localhost:3000 with your browser to see the result.
 3. Open http://localhost:3000/swagger/index.html, you can see Swagger Api documents.
 
-## Generate API doc using Swagger
+## Select Environment
+
+The environment is determined by `.env`.
+
+development: ([.env .development](https://github.com/skport/go-api-server-echo/blob/main/.env%20.development)):
+```Shell
+APP_ENV=development
+```
+
+other: ([.env .inmemory](https://github.com/skport/go-api-server-echo/blob/main/.env%20.inmemory)):
+```Shell
+APP_ENV=inmemory
+```
+
+If "development" is selected, the datastore is a MySQL server. and a Docker container must be started for MySQL. [=>](Create-Containers-for-MySQL-&-Adminer)
+
+Otherwise, the datastore is in-memory and no DB server is required.
+
+## Generate API document using Swagger
 
 1. Install Swag
 
