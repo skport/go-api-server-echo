@@ -42,7 +42,7 @@ flowchart LR
 |handlers|controller, routing|
 |services|usecase, Application Logic|
 |repository|data store|
-|docs|API doc to generated with Swagger|
+|docs|API documents to generated with Swagger<br>:warning:**Note: Don't change directly. Always use swagger cmd.**|
 |configs|Not in use now|
 
 ## Installation
@@ -58,7 +58,7 @@ $ go mod tidy
 2. Open http://localhost:3000 with your browser to see the result.
 3. Open http://localhost:3000/swagger/index.html, you can see Swagger Api documents.
 
-## Select Environment
+## Environment
 
 The environment is determined by `.env`.
 
@@ -76,9 +76,9 @@ If "development" is selected, the datastore is a MySQL server. and a Docker cont
 
 Otherwise, the datastore is in-memory and no DB server is required.
 
-Note : **`.env` should normally be added to `.gitignore`.**
+**Note: `.env` should normally be added to `.gitignore`.**
 
-## Generate API document using Swagger
+## Generate API documents using Swagger
 
 1. Install Swag
 
