@@ -72,9 +72,11 @@ other: ([.env .inmemory](https://github.com/skport/go-api-server-echo/blob/main/
 APP_ENV=inmemory
 ```
 
-If "development" is selected, the datastore is a MySQL server. and a Docker container must be started for MySQL. [=>](Create-Containers-for-MySQL-&-Adminer)
+If "development" is selected, the datastore is a MySQL server. and a Docker container must be started for MySQL. [=>](#create-containers-for-mysql--adminer)
 
 Otherwise, the datastore is in-memory and no DB server is required.
+
+Note : **`.env` should normally be added to `.gitignore`.**
 
 ## Generate API document using Swagger
 
