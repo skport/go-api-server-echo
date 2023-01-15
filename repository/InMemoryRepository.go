@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"errors"
-
 	"skport/go-api-server-echo/domains"
 )
 
@@ -35,7 +33,9 @@ func (rp *InMemoryRepository) ReadById(id int) (domains.Album, error) {
 			return a, nil
 		}
 	}
-	return domains.Album{}, errors.New("Not Found")
+
+	var err error
+	return domains.Album{}, err
 }
 
 func (rp *InMemoryRepository) Post(newAlbum domains.Album) (error) {
