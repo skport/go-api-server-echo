@@ -1,7 +1,7 @@
 # go-api-server-echo
 [![](https://img.shields.io/github/go-mod/go-version/golang/go/release-branch.go1.18?filename=src%2Fgo.mod&label=GO%20VERSION&style=for-the-badge&logo=appveyor)](https://github.com/golang/go/releases/tag/go1.18)
 
-The main objective of this repository is to compose a generic API server architecture using the Echo.
+An API server example using Echo with Swagger.
 
 ## Dependencies
 
@@ -42,7 +42,7 @@ flowchart LR
 |handlers|controller, routing|
 |services|usecase, Application Logic|
 |repository|data store|
-|docs|API documents to generated with Swagger<br>:warning:**Note: Don't change directly. Always use swagger cmd.**|
+|docs|API documents to generated with Swagger<br>:warning:**Note: Don't change directly. Must use swagger cmd.**|
 |configs|Not in use now|
 
 ## Installation
