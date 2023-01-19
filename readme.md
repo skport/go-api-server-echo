@@ -58,6 +58,37 @@ $ go mod tidy
 2. Open http://localhost:3000 with your browser to see the result.
 3. Open http://localhost:3000/swagger/index.html, you can see Swagger Api documents.
 
+Request:
+```sh
+$ curl -X 'GET' \ 'http://localhost:3000/albums' \ -H 'accept: application/json'
+```
+
+Response status code: `200`
+
+Response body:
+```sh
+[
+  {
+    "id": 1,
+    "title": "Blue Train",
+    "artist": "John Coltrane",
+    "price": 56.99
+  },
+  {
+    "id": 2,
+    "title": "Jeru",
+    "artist": "Gerry Mulligan",
+    "price": 17.99
+  },
+  {
+    "id": 3,
+    "title": "Sarah Vaughan and Clifford Brown",
+    "artist": "Sarah Vaughan",
+    "price": 39.99
+  }
+]
+```
+
 ## Environment
 
 The environment is determined by `.env`.
