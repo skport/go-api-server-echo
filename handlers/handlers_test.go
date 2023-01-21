@@ -61,6 +61,7 @@ func TestGetAlbums(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
+	c.SetPath("/albums")
 	
 	_, s := initConfig(e)
 
@@ -79,6 +80,7 @@ func TestGetAlbumByID(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
+	c.SetPath("/albums/:id")
 	c.SetParamNames("id")
 	c.SetParamValues("1")
 	
@@ -99,6 +101,7 @@ func TestGetAlbumByIDOutOfRange(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
+	c.SetPath("/albums/:id")
 	c.SetParamNames("id")
 	c.SetParamValues("4")
 	
