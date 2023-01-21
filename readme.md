@@ -63,8 +63,6 @@ Request:
 $ curl -X 'GET' \ 'http://localhost:3000/albums' \ -H 'accept: application/json'
 ```
 
-Response status code: `200`
-
 Response body:
 ```sh
 [
@@ -137,6 +135,14 @@ $ docker-compose up -d
 |---|---|---|---|
 |db|127.0.0.1|3306||
 |adminer|127.0.0.1|8080|http://localhost:8080/|
+
+## Testing
+
+```Shell
+go test ./handlers/ -v
+```
+
+In the `go test` command for handlers, the data store is always in-memory.
 
 ## ToDo
 More Code Design.

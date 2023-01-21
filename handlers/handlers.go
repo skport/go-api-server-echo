@@ -35,7 +35,7 @@ func NewHandler() *Handlers {
 
 // @securityDefinitions.basic  BasicAuth
 func (h *Handlers) Init(e *echo.Echo, s *services.Services) {
-	e.GET("/healthcheck", h.HealthCheck)
+	e.GET("/healthcheck", h.healthCheck)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 

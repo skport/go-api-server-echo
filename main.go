@@ -23,17 +23,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// ------
 	// Initialize Echo
 	e := echo.New()
-
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 	}))
-	// ------
 
 	// Switch data store using Repository pattern
 	env := os.Getenv("APP_ENV")
