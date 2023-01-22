@@ -112,3 +112,23 @@ func TestGetAlbumByIDOutOfRange(t *testing.T) {
 		assert.Equal(t, http.StatusNotFound, rec.Code)
 	}
 }
+
+func TestPostAlbums(t *testing.T) {
+	inputJson := `{"id":4, "title":"Sun", "artist":"Apple", "price":10.12}`
+
+	// Setup
+	e := echo.New()
+	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(inputJson))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req, rec)
+	c.SetPath("/albums")
+	
+	_, s := initConfig(e)
+
+	// Assertions
+	if assert.NoError(t, s.PostAlbums(c)) {
+		assert.Equal(t, http.StatusCreated, rec.Code)
+		assert.Equal(t, `"Accepted"`, strings.ReplaceAll(rec.Body.String(), "\n", ""))
+	}
+}

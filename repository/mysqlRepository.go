@@ -34,6 +34,9 @@ func dbOpen() (*sql.DB, error) {
 		return db, err
 	}
 
+	db.SetMaxIdleConns(10)
+  db.SetMaxOpenConns(10)
+
 	return db, nil
 }
 
@@ -131,9 +134,6 @@ func (rp *MySQLRepository) Post(newAlbum domains.Album) (error) {
 	}
 
 	_, err = tx.Exec("INSERT INTO album VALUES(?, ?, ?, ?)", newAlbum.ID, newAlbum.Title, newAlbum.Artist, newAlbum.Price)
-	if err != nil {
-		return err
-	}
 
 	if err != nil {
 		_ = tx.Rollback()

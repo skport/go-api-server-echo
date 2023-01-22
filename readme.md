@@ -58,9 +58,12 @@ $ go mod tidy
 2. Open http://localhost:3000 with your browser to see the result.
 3. Open http://localhost:3000/swagger/index.html, you can see Swagger Api documents.
 
-Request:
+
+### Get albums
+
+Request (GET):
 ```sh
-$ curl -X 'GET' \ 'http://localhost:3000/albums' \ -H 'accept: application/json'
+$ curl 'http://localhost:3000/albums'
 ```
 
 Response body:
@@ -85,6 +88,18 @@ Response body:
     "price": 39.99
   }
 ]
+```
+
+### Post album
+
+Request (POST):
+```sh
+$ curl -X POST 'http://localhost:3000/albums' -H 'Content-Type: application/json' -d '{"id":4, "title":"Sun", "artist":"Apple", "price":10.12}'
+```
+
+Response body:
+```sh
+Accepted
 ```
 
 ## Environment
@@ -138,8 +153,8 @@ $ docker-compose up -d
 
 ## Testing
 
-```Shell
-go test ./handlers/ -v
+```sh
+$ go test ./handlers/ -v
 ```
 
 In the `go test` command for handlers, the data store is always in-memory.

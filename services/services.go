@@ -71,7 +71,7 @@ func (s *Services) PostAlbums(c echo.Context) error {
 
 	// Call BindJSON to bind the received JSON to
 	// newAlbum.
-	if err := c.Bind(newAlbum); err != nil {
+	if err := c.Bind(&newAlbum); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
@@ -81,7 +81,7 @@ func (s *Services) PostAlbums(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusCreated, newAlbum)
+	return c.JSON(http.StatusCreated, "Accepted")
 }
 
 // GetAlbumByID godoc
