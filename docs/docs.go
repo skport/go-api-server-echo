@@ -54,9 +54,12 @@ const docTemplate = `{
                 "summary": "Show Albums",
                 "responses": {
                     "200": {
-                        "description": "GetAlbums",
+                        "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domains.Album"
+                            }
                         }
                     }
                 }
@@ -67,18 +70,22 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "produces": [
-                    "application/json"
+                    "text/plain"
                 ],
                 "tags": [
                     "Album"
                 ],
                 "summary": "Post Album",
                 "responses": {
-                    "200": {
-                        "description": "Post album",
+                    "201": {
+                        "description": "Accepted",
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
                     }
                 }
             }
@@ -96,9 +103,24 @@ const docTemplate = `{
                     "Album"
                 ],
                 "summary": "Show Album for id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Album id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Album for id",
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domains.Album"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "type": "string"
                         }
@@ -126,6 +148,25 @@ const docTemplate = `{
                             "type": "string"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domains.Album": {
+            "type": "object",
+            "properties": {
+                "artist": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         }

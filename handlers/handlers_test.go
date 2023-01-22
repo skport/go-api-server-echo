@@ -129,6 +129,6 @@ func TestPostAlbums(t *testing.T) {
 	// Assertions
 	if assert.NoError(t, s.PostAlbums(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
-		assert.Equal(t, `"Accepted"`, strings.ReplaceAll(rec.Body.String(), "\n", ""))
+		assert.Equal(t, "Accepted", rec.Body.String())
 	}
 }

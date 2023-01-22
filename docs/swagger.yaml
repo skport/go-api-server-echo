@@ -1,3 +1,15 @@
+definitions:
+  domains.Album:
+    properties:
+      artist:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      title:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -25,9 +37,11 @@ paths:
       - application/json
       responses:
         "200":
-          description: GetAlbums
+          description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/domains.Album'
+            type: array
       summary: Show Albums
       tags:
       - Album
@@ -36,12 +50,15 @@ paths:
       - application/json
       description: postAlbums adds an album from JSON received in the request body.
       produces:
-      - application/json
+      - text/plain
       responses:
-        "200":
-          description: Post album
+        "201":
+          description: Accepted
           schema:
             type: string
+        "400":
+          description: Bad Request
+          schema: {}
       summary: Post Album
       tags:
       - Album
@@ -50,11 +67,21 @@ paths:
       consumes:
       - '*/*'
       description: getAlbumByID locates the album whose ID value matches the id parameter
+      parameters:
+      - description: Album id
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: Album for id
+          description: OK
+          schema:
+            $ref: '#/definitions/domains.Album'
+        "404":
+          description: Not Found
           schema:
             type: string
       summary: Show Album for id

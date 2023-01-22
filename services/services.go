@@ -48,7 +48,7 @@ func (s *Services) Hello(c echo.Context) error {
 // @Tags         Album
 // @Accept       */*
 // @Produce      json
-// @Success      200 {string} string "GetAlbums"
+// @Success      200 {object} []domains.Album
 // @Router       /albums [get]
 func (s *Services) GetAlbums(c echo.Context) error {
 	r, err := s.rp.ReadAll()
@@ -63,8 +63,9 @@ func (s *Services) GetAlbums(c echo.Context) error {
 // @Description  postAlbums adds an album from JSON received in the request body.
 // @Tags         Album
 // @Accept       json
-// @Produce      json
-// @Success      200 {string} string "Post album"
+// @Produce      plain
+// @Success      201 {string} string "Accepted"
+// @Failure      400 {object}	error
 // @Router       /albums [post]
 func (s *Services) PostAlbums(c echo.Context) error {
 	var newAlbum domains.Album
@@ -81,7 +82,7 @@ func (s *Services) PostAlbums(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusCreated, "Accepted")
+	return c.String(http.StatusCreated, "Accepted")
 }
 
 // GetAlbumByID godoc
@@ -90,7 +91,9 @@ func (s *Services) PostAlbums(c echo.Context) error {
 // @Tags         Album
 // @Accept       */*
 // @Produce      json
-// @Success      200 {string} string "Album for id"
+// @Param			   id  path  int  true  "Album id"
+// @Success      200 {object} domains.Album
+// @Failure      404 {string}	string "Not Found"
 // @Router       /albums/{id} [get]
 // getAlbumByID locates the album whose ID value matches the id
 // parameter sent by the client, then returns that album as a response.
