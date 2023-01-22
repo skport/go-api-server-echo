@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"skport/go-api-server-echo/domains"
 )
 
@@ -39,6 +40,12 @@ func (rp *InMemoryRepository) ReadById(id int) (domains.Album, error) {
 }
 
 func (rp *InMemoryRepository) Post(newAlbum domains.Album) (error) {
+	for _, a := range rp.albums {
+		if a.ID == newAlbum.ID {
+			return errors.New("Duplicate id")
+		}
+	}
+
 	rp.albums = append(rp.albums, newAlbum)
 	return nil
 }

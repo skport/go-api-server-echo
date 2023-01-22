@@ -49,7 +49,7 @@ flowchart LR
 
 Create go.sum:
 ```sh
-$ go mod tidy
+go mod tidy
 ```
 
 ## Usage
@@ -63,7 +63,7 @@ $ go mod tidy
 
 Request (GET):
 ```sh
-$ curl 'http://localhost:3000/albums'
+curl 'http://localhost:3000/albums'
 ```
 
 Response body:
@@ -94,7 +94,7 @@ Response body:
 
 Request (POST):
 ```sh
-$ curl -X POST 'http://localhost:3000/albums' -H 'Content-Type: application/json' -d '{"id":4, "title":"Sun", "artist":"Apple", "price":10.12}'
+curl -X POST 'http://localhost:3000/albums' -H 'Content-Type: application/json' -d '{"id":4, "title":"Sun", "artist":"Apple", "price":10.12}'
 ```
 
 Response body:
@@ -127,7 +127,7 @@ Otherwise, the datastore is in-memory and no DB server is required.
 1. Install Swag
 
 ```sh
-$ go install github.com/swaggo/swag/cmd/swag@lates
+go install github.com/swaggo/swag/cmd/swag@lates
 ```
 
 2. Write API annotations to go file. ([Swagger Document](https://github.com/swaggo/swag#declarative-comments-format))
@@ -135,7 +135,7 @@ $ go install github.com/swaggo/swag/cmd/swag@lates
 3. Run `swag init` and generate API documents in `/docs` directory.
 
 ```sh
-$ swag init
+swag init
 ```
 
 4. Restart Server.
@@ -143,7 +143,7 @@ $ swag init
 ## Create Containers for MySQL & Adminer
 
 ```sh
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 |key|host|port|view|
@@ -154,7 +154,7 @@ $ docker-compose up -d
 ## Testing
 
 ```sh
-$ go test ./handlers/ -v
+go test ./handlers/ -v
 ```
 
 In the `go test` command for handlers, the data store is always in-memory.
