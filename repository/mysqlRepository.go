@@ -35,7 +35,7 @@ func dbOpen() (*sql.DB, error) {
 	}
 
 	db.SetMaxIdleConns(10)
-  db.SetMaxOpenConns(10)
+	db.SetMaxOpenConns(10)
 
 	return db, nil
 }
