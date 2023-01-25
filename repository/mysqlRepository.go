@@ -64,21 +64,20 @@ func (rp *MySQLRepository) init() {
 		{ID: 3, Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 	}
 
-	_, err = Db.Exec("CREATE DATABASE IF NOT EXISTS api CHARACTER SET utf8mb4 COLLATE utf8mb4_bin")
-	if err != nil {
-		log.Fatal(err)
+	// Create database, tables, select db
+	querys := []string {
+		"CREATE DATABASE IF NOT EXISTS api CHARACTER SET utf8mb4 COLLATE utf8mb4_bin",
+		"USE api",
+		"CREATE TABLE IF NOT EXISTS album ( id int(10) unsigned NOT NULL AUTO_INCREMENT, title varchar(100) NOT NULL, artist varchar(100) NOT NULL, price decimal(6,2) NOT NULL, PRIMARY KEY (id) )",
+	}
+	for _, q := range querys {
+		_, err = Db.Exec(q)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
-	_, err = Db.Exec("USE api")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	_, err = Db.Exec("CREATE TABLE IF NOT EXISTS album ( id int(10) unsigned NOT NULL AUTO_INCREMENT, title varchar(100) NOT NULL, artist varchar(100) NOT NULL, price decimal(6,2) NOT NULL, PRIMARY KEY (id) )")
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	// Insert records
 	tx, err := Db.Begin()
 	if err != nil {
 		log.Fatal(err)
