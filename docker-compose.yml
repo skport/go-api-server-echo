@@ -1,4 +1,18 @@
 services:
+  app:
+    container_name: go-api-server-echo-app
+    build: .
+    depends_on:
+      - db
+      - adminer
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: "./"
+        target: "/home"
+    tty: true
+
   db:
     container_name: go-api-server-echo-db
     image: mysql:5.7.40

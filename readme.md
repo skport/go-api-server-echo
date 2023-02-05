@@ -148,8 +148,14 @@ docker-compose up -d
 
 |key|host|port|view|
 |---|---|---|---|
+|app|127.0.0.1|3000|http://localhost:3000/|
 |db|127.0.0.1|3306||
 |adminer|127.0.0.1|8080|http://localhost:8080/|
+
+If you want a go execution environment container, use the `app` container. After the container shell is started, the prescribed flow is simply performed within the container.
+
+1. [Installation](#Installation)
+2. [Usage](#Usage)
 
 ## Testing
 
