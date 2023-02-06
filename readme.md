@@ -102,6 +102,36 @@ Response body:
 Accepted
 ```
 
+## User authentication Api
+
+### Basic
+- `POST /signup`
+- `POST /login`
+- `POST /logout`
+
+#### Login required
+- `GET /user/me`
+
+### Login sequence
+```mermaid
+sequenceDiagram
+    actor User
+    participant /login
+    User->>/login: Sent request
+    /login->>DataStore: Check login status
+    DataStore->>/login: Response to login availability
+    /login->>User: Response JWT
+```
+
+### Create user
+`POST /signup`
+
+### Login user
+`POST /login`
+
+### Get login user information
+`GET /user/me`
+
 ## Environment
 
 The environment is determined by `.env`.
