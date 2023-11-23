@@ -1,5 +1,5 @@
 # go-api-server-echo
-[![](https://img.shields.io/github/go-mod/go-version/golang/go/release-branch.go1.18?filename=src%2Fgo.mod&label=GO%20VERSION&style=for-the-badge&logo=appveyor)](https://github.com/golang/go/releases/tag/go1.18)
+[![](https://img.shields.io/github/go-mod/go-version/golang/go/release-branch.go1.21?filename=src%2Fgo.mod&label=GO%20VERSION&style=for-the-badge&logo=appveyor)](https://github.com/golang/go/releases/tag/go1.21)
 
 An API server example using Echo with Swagger.
 
